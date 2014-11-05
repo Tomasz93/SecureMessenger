@@ -24,6 +24,7 @@ import android.widget.TextView;
 public class LoginActivity extends Activity {
 
 	private TextView mIpAddressField;
+	private DH mDH;
 	private EditText mFriendIpAddressField;
 	private BroadcastReceiver mWifiReceiver;
 	
