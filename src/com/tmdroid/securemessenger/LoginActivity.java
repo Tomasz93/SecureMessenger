@@ -24,6 +24,7 @@ public class LoginActivity extends Activity {
 
 	TextView mIpAddressField;
 	BroadcastReceiver mWifiReceiver;
+	DH mDH;
 	Button mInviteButton;
 	Context context;
 	
@@ -86,14 +87,7 @@ public class LoginActivity extends Activity {
     public void connect(){
     	mInviteButton.setOnClickListener(new View.OnClickListener(){
     		public void onClick(View view){
-    			Random rnd1= new Random();
-    			Random rnd2= new Random();
-    			BigInteger publicP= new BigInteger(16,6,rnd1);
-    			BigInteger publicG= new BigInteger(16,9,rnd2);
-    			int secretValue = 7;
-    			BigInteger sendValue= publicG.pow(secretValue).mod(publicP);
-        
-      
+            mDH.initialize();
      }
     });
     }
