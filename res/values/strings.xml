@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="app_name">Secure Messenger</string>
-    <string name="hello_world">Hello world! WIELKA zmiana</string>
-
+    <string name="hello_world">Hello world! Inna zmiana</string>
 </resources>
