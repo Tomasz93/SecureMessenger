@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.ByteOrder;
+import java.util.Random;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -14,6 +15,8 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +24,7 @@ public class LoginActivity extends Activity {
 
 	TextView mIpAddressField;
 	BroadcastReceiver mWifiReceiver;
+	Button mInviteButton;
 	Context context;
 	
     @Override
@@ -40,6 +44,7 @@ public class LoginActivity extends Activity {
         IntentFilter filter = new IntentFilter();
         filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
         super.registerReceiver(mWifiReceiver, filter);
+        connect();
        
     }
 
@@ -78,4 +83,19 @@ public class LoginActivity extends Activity {
         mIpAddressField = (TextView) this.findViewById(R.id.ipAddressField);
         mIpAddressField.setText(ipAddressString);
     }
+    public void connect(){
+    	mInviteButton.setOnClickListener(new View.OnClickListener(){
+    		public void onClick(View view){
+    			Random rnd1= new Random();
+    			Random rnd2= new Random();
+    			BigInteger publicP= new BigInteger(16,6,rnd1);
+    			BigInteger publicG= new BigInteger(16,9,rnd2);
+    			int secretValue = 7;
+    			BigInteger sendValue= publicG.pow(secretValue).mod(publicP);
+        
+      
+     }
+    });
+    }
+    
 }
