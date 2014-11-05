@@ -6,11 +6,21 @@
     tools:context="${packageName}.${activityClass}" >
 
     <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/hello"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
         android:id="@+id/ipAddressText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        android:text="@string/ip_address" />
+        android:text="@string/ip_address"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
         android:id="@+id/ipAddressField"
@@ -22,26 +32,32 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/friendIpAddressText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        android:text="@string/friend_ip_address" />
+        android:text="@string/friend_ip_address"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/friendIpAddressField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:gravity="center_horizontal"
         android:ems="10"
-        android:inputType="number" >
+        android:inputType="number"
+        android:imeActionLabel="Invite"
+        android:digits="0123456789." >
 
         <requestFocus />
     </EditText>
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/inviteButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
         android:text="@string/invite_button" />
 
 </LinearLayout>

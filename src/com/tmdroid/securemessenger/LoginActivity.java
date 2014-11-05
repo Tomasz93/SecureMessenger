@@ -4,7 +4,6 @@ import java.math.BigInteger;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.ByteOrder;
-import java.util.Random;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -14,25 +13,39 @@ import android.content.IntentFilter;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
+import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
+import android.view.KeyEvent;
+import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class LoginActivity extends Activity {
 
-	TextView mIpAddressField;
-	BroadcastReceiver mWifiReceiver;
-	DH mDH;
-	Button mInviteButton;
-	Context context;
+	private TextView mIpAddressField;
+	private EditText mFriendIpAddressField;
+	private BroadcastReceiver mWifiReceiver;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        context = this;
+        
+        mFriendIpAddressField = (EditText) this.findViewById(R.id.friendIpAddressField);
+        if(mFriendIpAddressField.requestFocus()) {
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
+        mFriendIpAddressField.setImeActionLabel("Search Model", EditorInfo.IME_ACTION_GO);
+        mFriendIpAddressField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+			@Override
+			public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+				if(TextUtils.isEmpty(textView.getText().toString())) {
+					//odpalamy DH
+				}
+				return true;
+			}
+		});
      
         setWifiIpAddress(this);
         
@@ -45,7 +58,6 @@ public class LoginActivity extends Activity {
         IntentFilter filter = new IntentFilter();
         filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
         super.registerReceiver(mWifiReceiver, filter);
-        connect();
        
     }
 
@@ -84,12 +96,4 @@ public class LoginActivity extends Activity {
         mIpAddressField = (TextView) this.findViewById(R.id.ipAddressField);
         mIpAddressField.setText(ipAddressString);
     }
-    public void connect(){
-    	mInviteButton.setOnClickListener(new View.OnClickListener(){
-    		public void onClick(View view){
-            mDH.initialize();
-     }
-    });
-    }
-    
 }

@@ -5,4 +5,5 @@
     <string name="ip_address_error">Unable to get ip address.</string>
     <string name="friend_ip_address">Enter your friend IP address:</string>
     <string name="invite_button">Invite</string>
+    <string name="hello">Hello</string>
 </resources>
