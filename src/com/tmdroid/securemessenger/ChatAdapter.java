@@ -57,16 +57,14 @@ public class ChatAdapter extends BaseAdapter{
 		LayoutParams lp = (LayoutParams) oneMsg.getLayoutParams();
 		if(message.isMine())
 		{
-			//oneMsg.setBackgroundResource(R.drawable.white_chat);
 			oneMsg.setTextColor(mContext.getResources().getColor(R.color.messengertheme_color));
 			oneMsg.setTextAlignment(TextView.TEXT_ALIGNMENT_TEXT_END);
-			lp.gravity = Gravity.RIGHT;
+			lp.gravity = Gravity.RIGHT | Gravity.CENTER_VERTICAL;
 		}
 		else
 		{
-			//oneMsg.setBackgroundResource(R.drawable.red_chat);
 			oneMsg.setTextColor(Color.WHITE);
-			lp.gravity = Gravity.LEFT;
+			lp.gravity = Gravity.LEFT | Gravity.CENTER_VERTICAL;
 		}
 		oneMsg.setLayoutParams(lp);
 		

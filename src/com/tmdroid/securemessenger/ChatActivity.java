@@ -3,8 +3,8 @@ package com.tmdroid.securemessenger;
 import java.util.ArrayList;
 
 import android.app.Activity;
-import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.LinearLayout.LayoutParams;
 
 public class ChatActivity extends Activity {
 	
@@ -49,9 +48,6 @@ public class ChatActivity extends Activity {
 				if(hasFocus){
 					mMessageField.setText("");
 					mChatSendButton.setEnabled(true);
-					LayoutParams lp = (LayoutParams) mMessageLayout.getLayoutParams();
-					lp.weight = 0.3f;
-					mMessageLayout.setLayoutParams(lp);
 				}
 			}
 		});
@@ -69,16 +65,14 @@ public class ChatActivity extends Activity {
 		});
 	}
 	
-	public void onConfigurationChanged(Configuration newConfig) {
-	    super.onConfigurationChanged(newConfig);
-	    if (newConfig.hardKeyboardHidden == Configuration.HARDKEYBOARDHIDDEN_NO) {
-			LayoutParams lp = (LayoutParams) mMessageLayout.getLayoutParams();
-			lp.weight = 0.3f;
-			mMessageLayout.setLayoutParams(lp);
-	    } else if (newConfig.hardKeyboardHidden == Configuration.HARDKEYBOARDHIDDEN_YES) {
-			LayoutParams lp = (LayoutParams) mMessageLayout.getLayoutParams();
-			lp.weight = 0.1f;
-			mMessageLayout.setLayoutParams(lp);
-	    }
-	}
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case android.R.id.home:
+            finish();
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
+    }
 }

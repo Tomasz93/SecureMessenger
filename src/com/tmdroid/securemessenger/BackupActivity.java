@@ -22,7 +22,7 @@ public class BackupActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_backup);
+		//setContentView(R.layout.activity_backup);
 		mManager = (WifiP2pManager) getSystemService(Context.WIFI_P2P_SERVICE);
 		mChannel = mManager.initialize(this, getMainLooper(), null);
 		mReceiver = new Connection(mManager,mChannel,this);
@@ -48,7 +48,7 @@ public class BackupActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.backup, menu);
+		//getMenuInflater().inflate(R.menu.backup, menu);
 		return true;
 	}
 
@@ -58,9 +58,9 @@ public class BackupActivity extends Activity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		if (id == R.id.action_settings) {
+		//if (id == R.id.action_settings) {
 			return true;
-		}
-		return super.onOptionsItemSelected(item);
+		//}
+		//return super.onOptionsItemSelected(item);
 	}
 }
