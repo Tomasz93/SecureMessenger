@@ -4,24 +4,19 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="${packageName}.${activityClass}" >
-
-    <ScrollView
-        android:id="@+id/scrollView1"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-	    android:layout_weight="0.85" >
-
-        <ListView
-            android:id="@+id/chatListView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-        </ListView>
-    </ScrollView>
+	
+	<ListView
+		android:id="@+id/chatListView"
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight="0.9" >
+	</ListView>
 
     <LinearLayout
+	    android:id="@+id/messageLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-	    android:layout_weight="0.15" >
+	    android:layout_weight="0.1" >
         
 	    <EditText
 	        android:id="@+id/messageField"
@@ -32,12 +27,10 @@
 	        android:ems="10"
 	        android:text="@string/enter_your_message"
 	        android:inputType="textMultiLine" >
-	
-	        <requestFocus />
 	    </EditText>
 
         <ImageButton
-            android:id="@+id/imageButton1"
+            android:id="@+id/chatSendButton"
 	        android:layout_width="0dp"
 	        android:layout_weight="0.2"
             android:layout_height="wrap_content"

@@ -16,23 +16,30 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 public class LoginActivity extends Activity {
 
 	private TextView mIpAddressField;
+	private Button mInviteButton;
 	private DH mDH;
 	private EditText mFriendIpAddressField;
 	private BroadcastReceiver mWifiReceiver;
+	private Activity mActivity;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        mActivity = this;
         
+        mInviteButton = (Button) this.findViewById(R.id.inviteButton);
         mFriendIpAddressField = (EditText) this.findViewById(R.id.friendIpAddressField);
         if(mFriendIpAddressField.requestFocus()) {
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
@@ -43,8 +50,16 @@ public class LoginActivity extends Activity {
 			public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
 				if(TextUtils.isEmpty(textView.getText().toString())) {
 					//odpalamy DH
+					mActivity.startActivity(new Intent(mActivity, ChatActivity.class));
 				}
 				return true;
+			}
+		});
+        
+        mInviteButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mActivity.startActivity(new Intent(mActivity, ChatActivity.class));
 			}
 		});
      

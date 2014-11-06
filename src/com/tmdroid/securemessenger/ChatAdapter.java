@@ -2,67 +2,75 @@ package com.tmdroid.securemessenger;
 
 import java.util.ArrayList;
 
+import android.content.Context;
+import android.graphics.Color;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout.LayoutParams;
+import android.widget.TextView;
 
 public class ChatAdapter extends BaseAdapter{
 	
-	ArrayList messages;
+	ArrayList<Message> mMessages;
+	Context mContext;
+	LayoutInflater mInflater;
 	
-	public ChatAdapter(ArrayList messages){
-		this.messages = messages;
+	public ChatAdapter(ArrayList<Message> messages, Context context){
+		mMessages = messages;
+		mContext = context;
+		mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 
 	@Override
 	public int getCount() {
-		return messages.size();
+		return mMessages.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		return messages.get(position);
+		return mMessages.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
-		return position;
+		return 0;
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		Message message = (Message) this.getItem(position);
-		 
-		/*ViewHolder holder; 
+		TextView oneMsg;
 		if(convertView == null)
 		{
-			holder = new ViewHolder();
-			convertView = LayoutInflater.from(mContext).inflate(R.layout.sms_row, parent, false);
-			holder.message = (TextView) convertView.findViewById(R.id.message_text);
-			convertView.setTag(holder);
+			convertView = mInflater.inflate(R.layout.row_chat_item, parent, false);
+			oneMsg = (TextView) convertView.findViewById(R.id.chatMessageText);
+			convertView.setTag(oneMsg);
 		}
 		else
-			holder = (ViewHolder) convertView.getTag();
+			oneMsg = (TextView) convertView.getTag();
 	 
-		holder.message.setText(message.getMessage());
+		oneMsg.setText(message.getMessage());
 	 
-		LayoutParams lp = (LayoutParams) holder.message.getLayoutParams();
-		//Check whether message is mine to show green background and align to right
+		LayoutParams lp = (LayoutParams) oneMsg.getLayoutParams();
 		if(message.isMine())
 		{
-			holder.message.setBackgroundResource(R.drawable.speech_bubble_green);
+			//oneMsg.setBackgroundResource(R.drawable.white_chat);
+			oneMsg.setTextColor(mContext.getResources().getColor(R.color.messengertheme_color));
+			oneMsg.setTextAlignment(TextView.TEXT_ALIGNMENT_TEXT_END);
 			lp.gravity = Gravity.RIGHT;
 		}
 		else
 		{
-			holder.message.setBackgroundResource(R.drawable.speech_bubble_orange);
+			//oneMsg.setBackgroundResource(R.drawable.red_chat);
+			oneMsg.setTextColor(Color.WHITE);
 			lp.gravity = Gravity.LEFT;
 		}
-		holder.message.setLayoutParams(lp);
-		holder.message.setTextColor(R.color.textColor);	
+		oneMsg.setLayoutParams(lp);
 		
-		return convertView;*/
-		return null;
+		return convertView;
 	}
 
 }
