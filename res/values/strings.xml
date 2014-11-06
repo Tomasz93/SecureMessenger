@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">Secure Messenger</string>
     <string name="ip_address">Your IP address:</string>
     <string name="ip_address_error">Unable to get ip address.</string>
     <string name="friend_ip_address">Enter your friend IP address:</string>
     <string name="invite_button">Invite</string>
     <string name="hello">Hello</string>
+    <string name="title_activity_chat">Chat</string>
+    <string name="enter_your_message">Enter your message</string>
+
 </resources>
