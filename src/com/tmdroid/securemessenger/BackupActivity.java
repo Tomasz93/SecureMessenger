@@ -25,7 +25,7 @@ public class BackupActivity extends Activity {
 		//setContentView(R.layout.activity_backup);
 		mManager = (WifiP2pManager) getSystemService(Context.WIFI_P2P_SERVICE);
 		mChannel = mManager.initialize(this, getMainLooper(), null);
-		mReceiver = new Connection(mManager,mChannel,this);
+		//mReceiver = new Connection(mManager,mChannel,this);
 		mIntentFilter = new IntentFilter();
 		mIntentFilter.addAction(WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION);
 		mIntentFilter.addAction(WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION);

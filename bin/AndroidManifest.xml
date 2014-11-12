@@ -32,6 +32,10 @@
             android:name="com.tmdroid.securemessenger.ChatActivity"
             android:label="@string/title_activity_chat" >
         </activity>
+        <activity
+            android:name="com.tmdroid.securemessenger.PeersActivity"
+            android:label="@string/title_activity_peers" >
+        </activity>
     </application>
 
 </manifest>

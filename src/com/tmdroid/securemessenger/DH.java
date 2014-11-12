@@ -5,24 +5,36 @@ import java.util.Random;
 
 public class DH {
 	public Random rnd;
-	public BigInteger publicP,publicG,mySendValue,key;
-	public int mySecretValue;
+	public BigInteger publicP,publicG,publicA,publicB;
+	public BigInteger key = null;
+	public boolean test = false;
+	private int mySecretValue;
+	
 	public void initialize(){
-		rnd= new Random();
-		publicP= new BigInteger(16,6,rnd);
-		publicG= new BigInteger(16,9,rnd);
+		rnd = new Random();
+		publicP = new BigInteger(16,6,rnd);
+		publicG = new BigInteger(16,9,rnd);
+	}
+	
+	public void getPublicPAndG(BigInteger p, BigInteger g){
+		publicP = p;
+		publicG = g;
 	}
 	
 	public void calculateMySecretValue(){
-		mySecretValue =rnd.nextInt();
-		mySendValue= publicG.pow(mySecretValue).mod(publicP);
+		mySecretValue = rnd.nextInt();
+		publicA = publicG.pow(mySecretValue).mod(publicP);
+	}
+	
+	public void getPublicB(BigInteger b){
+		publicB = b;
 	}
 	
 	public void calculateKey(){
-		key=mySendValue.pow(mySecretValue).mod(publicP);
+		key = publicB.pow(mySecretValue).mod(publicP);
 	}
 	
-	public static int[] findPrime(int n){
+	/*public static int[] findPrime(int n){
 		int N[] = new int[n];
 		for(int i=2; i<n; i++){
 			N[i-2] = i;
@@ -46,6 +58,6 @@ public class DH {
 			next = 0;
 		}
 		return N;
-	}
+	}*/
 
 }

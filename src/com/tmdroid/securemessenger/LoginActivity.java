@@ -28,8 +28,8 @@ public class LoginActivity extends Activity {
 
 	private TextView mIpAddressField;
 	private Button mInviteButton;
-	private DH mDH;
 	private EditText mFriendIpAddressField;
+	private EditText mFriendPortField;
 	private BroadcastReceiver mWifiReceiver;
 	private Activity mActivity;
 	
@@ -41,16 +41,32 @@ public class LoginActivity extends Activity {
         
         mInviteButton = (Button) this.findViewById(R.id.inviteButton);
         mFriendIpAddressField = (EditText) this.findViewById(R.id.friendIpAddressField);
+        mFriendPortField = (EditText) this.findViewById(R.id.friendPortField);
         if(mFriendIpAddressField.requestFocus()) {
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
-        mFriendIpAddressField.setImeActionLabel("Search Model", EditorInfo.IME_ACTION_GO);
+        mFriendIpAddressField.setImeActionLabel("Next", EditorInfo.IME_ACTION_GO);
+        mFriendPortField.setImeActionLabel("Invite", EditorInfo.IME_ACTION_GO);
         mFriendIpAddressField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 			@Override
 			public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
 				if(TextUtils.isEmpty(textView.getText().toString())) {
-					//odpalamy DH
-					mActivity.startActivity(new Intent(mActivity, ChatActivity.class));
+					textView.setError("Put your friend IP address here");
+				}else{
+					mFriendPortField.requestFocus();
+				}
+				return true;
+			}
+		});
+        mFriendPortField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+			@Override
+			public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+				if(TextUtils.isEmpty(textView.getText().toString())) {
+					textView.setError("Put your port connection here");
+				}else{
+					Intent intent = new Intent(mActivity, ChatActivity.class);
+					intent.putExtra("IP_ADDRESS", mFriendIpAddressField.getText().toString()+":"+textView.getText().toString());
+					mActivity.startActivity(intent);
 				}
 				return true;
 			}
@@ -59,7 +75,18 @@ public class LoginActivity extends Activity {
         mInviteButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				mActivity.startActivity(new Intent(mActivity, ChatActivity.class));
+				if(mFriendIpAddressField.getText().length() < 7){
+					mFriendIpAddressField.setError("Put your friend IP address here");
+					mFriendIpAddressField.requestFocus();
+				}else if(mFriendPortField.getText().length() < 4){
+					mFriendPortField.setError("Put your port connection here");
+					mFriendPortField.requestFocus();
+					
+				}else{
+					Intent intent = new Intent(mActivity, ChatActivity.class);
+					intent.putExtra("IP_ADDRESS", mFriendIpAddressField.getText().toString()+":"+mFriendPortField.getText().toString());
+					mActivity.startActivity(intent);
+				}
 			}
 		});
      
@@ -111,5 +138,16 @@ public class LoginActivity extends Activity {
         
         mIpAddressField = (TextView) this.findViewById(R.id.ipAddressField);
         mIpAddressField.setText(ipAddressString);
+    }
+    
+    public void onHostRadioYes(View view){
+    	mFriendIpAddressField.setEnabled(false);
+    	mFriendPortField.requestFocus();
+    }
+    
+    public void onHostRadioNo(View view){
+    	mFriendIpAddressField.setEnabled(true);
+    	mFriendIpAddressField.requestFocus();
+    	
     }
 }
