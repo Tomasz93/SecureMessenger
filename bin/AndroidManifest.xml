@@ -21,7 +21,8 @@
         android:theme="@style/MessengerTheme" >
         <activity
             android:name="com.tmdroid.securemessenger.LoginActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,11 +31,8 @@
         </activity>
         <activity
             android:name="com.tmdroid.securemessenger.ChatActivity"
-            android:label="@string/title_activity_chat" >
-        </activity>
-        <activity
-            android:name="com.tmdroid.securemessenger.PeersActivity"
-            android:label="@string/title_activity_peers" >
+            android:label="@string/title_activity_chat"
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 

@@ -22,6 +22,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 public class LoginActivity extends Activity {
@@ -30,6 +31,7 @@ public class LoginActivity extends Activity {
 	private Button mInviteButton;
 	private EditText mFriendIpAddressField;
 	private EditText mFriendPortField;
+	private RadioButton mHostCheckBox;
 	private BroadcastReceiver mWifiReceiver;
 	private Activity mActivity;
 	
@@ -42,6 +44,7 @@ public class LoginActivity extends Activity {
         mInviteButton = (Button) this.findViewById(R.id.inviteButton);
         mFriendIpAddressField = (EditText) this.findViewById(R.id.friendIpAddressField);
         mFriendPortField = (EditText) this.findViewById(R.id.friendPortField);
+        mHostCheckBox = (RadioButton) this.findViewById(R.id.radioHostYes);
         if(mFriendIpAddressField.requestFocus()) {
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
@@ -65,7 +68,7 @@ public class LoginActivity extends Activity {
 					textView.setError("Put your port connection here");
 				}else{
 					Intent intent = new Intent(mActivity, ChatActivity.class);
-					intent.putExtra("IP_ADDRESS", mFriendIpAddressField.getText().toString()+":"+textView.getText().toString());
+					intent.putExtra("IP_ADDRESS", mFriendIpAddressField.getText().toString()+":"+textView.getText().toString()+":"+mHostCheckBox.isChecked());
 					mActivity.startActivity(intent);
 				}
 				return true;
@@ -75,7 +78,7 @@ public class LoginActivity extends Activity {
         mInviteButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if(mFriendIpAddressField.getText().length() < 7){
+				if(mFriendIpAddressField.getText().length() < 7 && !mHostCheckBox.isChecked()){
 					mFriendIpAddressField.setError("Put your friend IP address here");
 					mFriendIpAddressField.requestFocus();
 				}else if(mFriendPortField.getText().length() < 4){
@@ -84,7 +87,7 @@ public class LoginActivity extends Activity {
 					
 				}else{
 					Intent intent = new Intent(mActivity, ChatActivity.class);
-					intent.putExtra("IP_ADDRESS", mFriendIpAddressField.getText().toString()+":"+mFriendPortField.getText().toString());
+					intent.putExtra("IP_ADDRESS", mFriendIpAddressField.getText().toString()+":"+mFriendPortField.getText().toString()+":"+mHostCheckBox.isChecked());
 					mActivity.startActivity(intent);
 				}
 			}

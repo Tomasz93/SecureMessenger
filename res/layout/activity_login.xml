@@ -82,10 +82,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.6"
-            android:digits="0123456789.:"
             android:ems="10"
+            android:maxLength="15"
             android:gravity="center_horizontal"
-            android:inputType="number"
             android:singleLine="true" >
 
             <requestFocus />
@@ -106,6 +105,7 @@
             android:layout_weight="0.35"
             android:digits="0123456789"
             android:ems="10"
+            android:maxLength="5"
             android:gravity="center_horizontal"
             android:inputType="number"
             android:singleLine="true" >
