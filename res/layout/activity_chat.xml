@@ -4,6 +4,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="${packageName}.${activityClass}" >
+
+    <CheckBox
+        android:id="@+id/infoCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginRight="10dp"
+        android:text="@string/show_info" />
 	
 	<ListView
 		android:id="@+id/chatListView"

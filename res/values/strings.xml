@@ -14,5 +14,6 @@
     <string name="be_server">Want to be a host?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="show_info">Show logs</string>
 
 </resources>

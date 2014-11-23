@@ -6,15 +6,15 @@ import java.net.UnknownHostException;
 import java.nio.ByteOrder;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -67,9 +67,14 @@ public class LoginActivity extends Activity {
 				if(TextUtils.isEmpty(textView.getText().toString())) {
 					textView.setError("Put your port connection here");
 				}else{
-					Intent intent = new Intent(mActivity, ChatActivity.class);
-					intent.putExtra("IP_ADDRESS", mFriendIpAddressField.getText().toString()+":"+textView.getText().toString()+":"+mHostCheckBox.isChecked());
-					mActivity.startActivity(intent);
+					if(mFriendIpAddressField.getText().length() < 7 && !mHostCheckBox.isChecked()){
+						mFriendIpAddressField.setError("Put your friend IP address here");
+						mFriendIpAddressField.requestFocus();
+					}else{
+						Intent intent = new Intent(mActivity, ChatActivity.class);
+						intent.putExtra("IP_ADDRESS", mFriendIpAddressField.getText().toString()+":"+textView.getText().toString()+":"+mHostCheckBox.isChecked());
+						mActivity.startActivityForResult(intent, 0);
+					}
 				}
 				return true;
 			}
@@ -88,7 +93,7 @@ public class LoginActivity extends Activity {
 				}else{
 					Intent intent = new Intent(mActivity, ChatActivity.class);
 					intent.putExtra("IP_ADDRESS", mFriendIpAddressField.getText().toString()+":"+mFriendPortField.getText().toString()+":"+mHostCheckBox.isChecked());
-					mActivity.startActivity(intent);
+					mActivity.startActivityForResult(intent, 0);
 				}
 			}
 		});
@@ -101,9 +106,6 @@ public class LoginActivity extends Activity {
 	        	setWifiIpAddress(context);
             }
         };
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
-        super.registerReceiver(mWifiReceiver, filter);
        
     }
 
@@ -112,13 +114,13 @@ public class LoginActivity extends Activity {
         super.onResume();
         IntentFilter filter = new IntentFilter();
         filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
-        LocalBroadcastManager.getInstance(this).registerReceiver(mWifiReceiver, filter);
+        registerReceiver(mWifiReceiver, filter);
     }
     
     @Override
 	public void onPause() {
         super.onPause();
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(mWifiReceiver);
+        unregisterReceiver(mWifiReceiver);
     }
     
     private void setWifiIpAddress(Context context) {
@@ -135,7 +137,6 @@ public class LoginActivity extends Activity {
         try {
             ipAddressString = InetAddress.getByAddress(ipByteArray).getHostAddress();
         } catch (UnknownHostException ex) {
-            Log.e("WIFIIP", "Unable to get ip address.");
             ipAddressString = context.getString(R.string.ip_address_error);
         }
         
@@ -152,5 +153,20 @@ public class LoginActivity extends Activity {
     	mFriendIpAddressField.setEnabled(true);
     	mFriendIpAddressField.requestFocus();
     	
+    }
+    
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 0 && resultCode == Activity.RESULT_OK) {
+        	 AlertDialog.Builder builder = new AlertDialog.Builder(this);
+             builder.setMessage(data.getStringExtra("ERROR_DESC"))
+             		.setTitle("Error")
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            
+                        }
+                    });
+             builder.create().show();
+        }
     }
 }
